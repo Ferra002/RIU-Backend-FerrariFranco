@@ -3,6 +3,7 @@ package com.mindata.riu.application.mapper;
 import com.mindata.riu.application.port.out.dto.SearchRepositoryDTO;
 import com.mindata.riu.application.port.out.dto.SearchResultDTO;
 import com.mindata.riu.domain.model.SearchCount;
+import com.mindata.riu.factory.TestClassBuilder;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -17,31 +18,25 @@ class SearchRepositoryMapperTest {
 
     @Test
     void toCount() {
-
-        SearchRepositoryDTO dto = new SearchRepositoryDTO(
-                "search-id",
-                new SearchResultDTO(
-                        "1234aBc",
-                        LocalDate.MIN,
-                        LocalDate.MAX,
-                        List.of(1,2,3)
-                ),
-                100
-        );
-
-        SearchCount searchCount = mapper.toCount(dto);
+        SearchRepositoryDTO dto = TestClassBuilder.SEARCH_REPOSITORY_DTO;
+        SearchCount mapped = mapper.toCount(dto);
 
         assertAll(
                 "Verify mapped fields",
-                () -> assertNotNull(searchCount),
-                () -> assertNotNull(searchCount.searchId()),
-                () -> assertNotNull(searchCount.search()),
-                () -> assertNotNull(searchCount.search().hotelId()),
-                () -> assertNotNull(searchCount.search().checkIn()),
-                () -> assertNotNull(searchCount.search().checkOut()),
-                () -> assertNotNull(searchCount.search().ages()),
-                () -> assertNotNull(searchCount.count())
+                () -> assertNotNull(mapped),
+                () -> assertNotNull(mapped.searchId()),
+                () -> assertEquals(mapped.searchId(), dto.searchId()),
+                () -> assertNotNull(mapped.search()),
+                () -> assertNotNull(mapped.search().hotelId()),
+                () -> assertEquals(mapped.search().hotelId(), dto.search().hotelId()),
+                () -> assertNotNull(mapped.search().checkIn()),
+                () -> assertEquals(mapped.search().checkIn(), dto.search().checkIn()),
+                () -> assertNotNull(mapped.search().checkOut()),
+                () -> assertEquals(mapped.search().checkOut(), dto.search().checkOut()),
+                () -> assertNotNull(mapped.search().ages()),
+                () -> assertEquals(mapped.search().ages(), dto.search().ages()),
+                () -> assertNotNull(mapped.count()),
+                () -> assertEquals(mapped.count(), dto.count())
         );
-
     }
 }
