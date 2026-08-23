@@ -11,7 +11,7 @@
 	<groupId>com.mindata</groupId>
 	<artifactId>riu</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Availability Searcher</name>
+	<name>RIU Searcher</name>
 	<description>Backend technical challenge for Mindata</description>
 	<developers>
 		<developer>

@@ -1,0 +1,47 @@
+package com.mindata.riu.infrastructure.web.controller;
+
+import com.mindata.riu.application.port.in.CountUseCase;
+import com.mindata.riu.application.port.in.SearchUseCase;
+import com.mindata.riu.infrastructure.web.dto.request.CountRequestDTO;
+import com.mindata.riu.infrastructure.web.dto.request.SearchRequestDTO;
+import com.mindata.riu.infrastructure.web.dto.response.CountResponseDTO;
+import com.mindata.riu.infrastructure.web.dto.response.SearchResponseDTO;
+import com.mindata.riu.infrastructure.web.mapper.CountMapper;
+import com.mindata.riu.infrastructure.web.mapper.SearchMapper;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("/api/hotel-search/v1")
+public class RestSearch {
+
+    private final CountMapper countMapper;
+    private final SearchMapper searchMapper;
+
+    private final CountUseCase countUseCase;
+    private final SearchUseCase searchUseCase;
+
+    @GetMapping("/count")
+    public ResponseEntity<CountResponseDTO> count(@RequestBody @Valid CountRequestDTO request){
+        return ResponseEntity.ok(
+                countMapper.toResponse(countUseCase.count(request.searchId()))
+        );
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<SearchResponseDTO> search(@RequestBody @Valid SearchRequestDTO request){
+        return ResponseEntity.ok(
+                searchMapper.toResponse(
+                        searchUseCase.search(searchMapper.toCriteria(request))
+                )
+        );
+    }
+
+}
