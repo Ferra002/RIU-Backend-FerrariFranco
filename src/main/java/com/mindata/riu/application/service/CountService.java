@@ -3,7 +3,7 @@ package com.mindata.riu.application.service;
 import com.mindata.riu.application.mapper.SearchRepositoryMapper;
 import com.mindata.riu.application.port.in.CountUseCase;
 import com.mindata.riu.application.port.out.SearchRepository;
-import com.mindata.riu.domain.model.Count;
+import com.mindata.riu.domain.model.SearchCount;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class CountService implements CountUseCase {
     private final SearchRepositoryMapper mapper;
 
     @Override
-    public Count count(String searchId) {
+    public SearchCount count(String searchId) {
         return mapper.toCount(repository.count(searchId));
     }
 

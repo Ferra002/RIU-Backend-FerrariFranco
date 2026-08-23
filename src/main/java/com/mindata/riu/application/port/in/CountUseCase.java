@@ -1,9 +1,9 @@
 package com.mindata.riu.application.port.in;
 
-import com.mindata.riu.domain.model.Count;
+import com.mindata.riu.domain.model.SearchCount;
 
 public interface CountUseCase {
 
-    Count count(String searchId);
+    SearchCount count(String searchId);
 
 }
