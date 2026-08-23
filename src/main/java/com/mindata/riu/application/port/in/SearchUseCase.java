@@ -5,6 +5,6 @@ import com.mindata.riu.domain.model.SearchCriteria;
 
 public interface SearchUseCase {
 
-    Search search(SearchCriteria searchCriteria);
+    Search postSearch(SearchCriteria searchCriteria);
 
 }

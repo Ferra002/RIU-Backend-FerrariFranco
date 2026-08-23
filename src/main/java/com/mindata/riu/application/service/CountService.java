@@ -2,7 +2,7 @@ package com.mindata.riu.application.service;
 
 import com.mindata.riu.application.mapper.SearchRepositoryMapper;
 import com.mindata.riu.application.port.in.CountUseCase;
-import com.mindata.riu.application.port.out.SearchRepository;
+import com.mindata.riu.application.port.out.repository.SearchRepository;
 import com.mindata.riu.domain.exception.search.SearchNotFoundException;
 import com.mindata.riu.domain.model.SearchCount;
 import lombok.RequiredArgsConstructor;

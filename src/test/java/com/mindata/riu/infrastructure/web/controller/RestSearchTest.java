@@ -1,6 +1,6 @@
 package com.mindata.riu.infrastructure.web.controller;
 
-import com.mindata.riu.application.port.out.SearchRepository;
+import com.mindata.riu.application.port.out.repository.SearchRepository;
 import com.mindata.riu.factory.TestClassBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -39,7 +39,7 @@ public class RestSearch {
     public ResponseEntity<SearchResponseDTO> search(@RequestBody @Valid SearchRequestDTO request){
         return ResponseEntity.ok(
                 searchMapper.toResponse(
-                        searchUseCase.search(searchMapper.toCriteria(request))
+                        searchUseCase.postSearch(searchMapper.toCriteria(request))
                 )
         );
     }

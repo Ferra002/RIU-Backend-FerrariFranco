@@ -48,4 +48,11 @@ public class TestClassBuilder {
             "search-id"
     );
 
+    public static final SearchCriteria SEARCH_CRITERIA = new SearchCriteria(
+        "valid-hotel",
+        LocalDate.MIN,
+        LocalDate.MAX,
+        List.of(1,2,3)
+    );
+
 }

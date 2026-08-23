@@ -1,4 +1,4 @@
-package com.mindata.riu.application.port.out;
+package com.mindata.riu.application.port.out.repository;
 
 import com.mindata.riu.application.port.out.dto.SearchRepositoryDTO;
 
