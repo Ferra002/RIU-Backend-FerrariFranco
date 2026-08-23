@@ -16,6 +16,8 @@ public class SearchService implements SearchUseCase {
 
     @Override
     public Search search(SearchCriteria searchCriteria){
+
+
         String searchId = UUID.randomUUID().toString();
 
         // Send Kafka message

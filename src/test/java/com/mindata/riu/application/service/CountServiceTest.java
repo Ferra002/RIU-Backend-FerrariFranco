@@ -1,0 +1,46 @@
+package com.mindata.riu.application.service;
+
+import com.mindata.riu.application.mapper.SearchRepositoryMapper;
+import com.mindata.riu.application.port.out.SearchRepository;
+import com.mindata.riu.application.port.out.dto.SearchRepositoryDTO;
+import com.mindata.riu.domain.model.SearchCount;
+import com.mindata.riu.factory.TestClassBuilder;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+class CountServiceTest {
+
+    @Mock
+    SearchRepository repository;
+
+    @Mock
+    SearchRepositoryMapper mapper;
+
+    @InjectMocks
+    CountService countService;
+
+    @Test
+    void count() {
+        SearchRepositoryDTO searchRepositoryDto = TestClassBuilder.SEARCH_REPOSITORY_DTO;
+        SearchCount expected = TestClassBuilder.SEARCH_COUNT;
+
+        when(repository.findBySearchId(searchRepositoryDto.searchId())).thenReturn(Optional.of(searchRepositoryDto));
+        when(mapper.toCount(searchRepositoryDto)).thenReturn(expected);
+
+        SearchCount result = countService.count(searchRepositoryDto.searchId());
+        assertAll(
+                () -> assertNotNull(result),
+                () -> verify(repository).findBySearchId(searchRepositoryDto.searchId()),
+                () -> verify(mapper).toCount(searchRepositoryDto)
+        );
+    }
+}

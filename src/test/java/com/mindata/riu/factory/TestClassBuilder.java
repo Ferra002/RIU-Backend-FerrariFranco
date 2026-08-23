@@ -5,6 +5,7 @@ import com.mindata.riu.application.port.out.dto.SearchResultDTO;
 import com.mindata.riu.domain.model.Search;
 import com.mindata.riu.domain.model.SearchCount;
 import com.mindata.riu.domain.model.SearchCriteria;
+import com.mindata.riu.infrastructure.web.dto.request.CountRequestDTO;
 import com.mindata.riu.infrastructure.web.dto.request.SearchRequestDTO;
 
 import java.time.LocalDate;
@@ -33,6 +34,8 @@ public class TestClassBuilder {
             ),
             100
     );
+
+    public static final CountRequestDTO COUNT_REQUEST_DTO = new CountRequestDTO("search-id");
 
     public static final SearchRequestDTO SEARCH_REQUEST_DTO = new SearchRequestDTO(
             "5923Eba",

@@ -10,6 +10,7 @@ import org.mapstruct.factory.Mappers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 class SearchMapperTest {
 
     SearchMapper mapper = Mappers.getMapper(SearchMapper.class);
