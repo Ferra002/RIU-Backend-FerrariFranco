@@ -1,6 +1,8 @@
 package com.mindata.riu.infrastructure.in.web.handler;
 
-import com.mindata.riu.domain.exception.search.SearchNotFoundException;
+import com.mindata.riu.domain.exception.search.CheckInAfterCheckOutException;
+import com.mindata.riu.domain.exception.search.InvalidSearchCriteriaException;
+import com.mindata.riu.infrastructure.in.web.dto.response.HandlerResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -9,10 +11,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class SearchExceptionHandler {
 
-    @ExceptionHandler(SearchNotFoundException.class)
-    public ResponseEntity<String> handleSearchNotFound(SearchNotFoundException ex){
-        String response = HandlerResponse.buildResponse(HttpStatus.NOT_FOUND, ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    @ExceptionHandler(CheckInAfterCheckOutException.class)
+    public ResponseEntity<HandlerResponse> handleCheckInAfterCheckOutException(CheckInAfterCheckOutException ex){
+        HandlerResponse response = HandlerResponseBuilder.build(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
+    @ExceptionHandler(InvalidSearchCriteriaException.class)
+    public ResponseEntity<HandlerResponse> handleInvalidSearchCriteriaException(InvalidSearchCriteriaException ex){
+        HandlerResponse response = HandlerResponseBuilder.build(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 
 }

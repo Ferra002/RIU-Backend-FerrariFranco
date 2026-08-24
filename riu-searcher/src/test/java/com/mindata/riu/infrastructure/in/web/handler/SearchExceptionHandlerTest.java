@@ -1,24 +1,38 @@
 package com.mindata.riu.infrastructure.in.web.handler;
 
-import com.mindata.riu.domain.exception.search.SearchNotFoundException;
+import com.mindata.riu.domain.exception.search.CheckInAfterCheckOutException;
+import com.mindata.riu.domain.exception.search.InvalidSearchCriteriaException;
 import org.junit.jupiter.api.Test;
 
-import java.util.Objects;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SearchExceptionHandlerTest {
 
-    SearchExceptionHandler searchExceptionHandler = new SearchExceptionHandler();
+    SearchExceptionHandler exceptionHandler = new SearchExceptionHandler();
 
     @Test
-    void handleSearchNotFound() {
-        var response = searchExceptionHandler.handleSearchNotFound(new SearchNotFoundException("sample-id"));
+    void handleCheckInAfterCheckOutException() {
+        var response = exceptionHandler.handleCheckInAfterCheckOutException(
+            new CheckInAfterCheckOutException(LocalDate.MAX, LocalDate.MIN)
+        );
 
         assertAll(
             () -> assertTrue(response.getStatusCode().is4xxClientError()),
-            () -> assertNotNull(response.getBody()),
-            () -> assertFalse(Objects.requireNonNull(response.getBody()).isEmpty())
+            () -> assertNotNull(response.getBody())
+        );
+    }
+
+    @Test
+    void handleInvalidSearchCriteriaException(){
+        var response = exceptionHandler.handleInvalidSearchCriteriaException(
+            new InvalidSearchCriteriaException()
+        );
+
+        assertAll(
+            () -> assertTrue(response.getStatusCode().is5xxServerError()),
+            () -> assertNotNull(response.getBody())
         );
     }
 
