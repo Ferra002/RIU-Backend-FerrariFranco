@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record CountRequestDTO(
 
-        @NotBlank
+        @NotBlank(message = "El campo 'searchId' no puede ser nulo o estar vacío")
         String searchId
 
 ) {}

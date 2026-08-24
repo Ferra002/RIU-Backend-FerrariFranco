@@ -11,18 +11,22 @@ import java.util.List;
 
 public record SearchRequestDTO(
 
-        @NotBlank
+        @NotBlank(message = "El campo 'hotelId' no puede ser nulo o estar vacío")
         String hotelId,
 
-        @NotNull
+        @NotNull(message = "El campo 'checkIn' no puede ser nulo o estar vacío")
         LocalDate checkIn,
 
-        @NotNull
+        @NotNull(message = "El campo 'checkOut' no puede ser nulo o estar vacío")
         LocalDate checkOut,
 
-        @NotNull
-        @NotEmpty
-        List<@NotNull @Min(0) Integer> ages
+        @NotNull(message = "El campo 'ages' no puede ser nulo")
+        @NotEmpty(message = "El campo 'ages' no debe estar vacío")
+        List<
+            @NotNull(message = "El valor dentro de 'ages' no puede ser nulo")
+            @Min(value = 0, message = "El valor dentro de 'ages' no puede ser menor a 0")
+            Integer
+        > ages
 
 ) {
 
