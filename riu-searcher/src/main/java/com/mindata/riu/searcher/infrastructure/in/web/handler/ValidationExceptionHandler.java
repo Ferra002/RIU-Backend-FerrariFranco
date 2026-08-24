@@ -1,6 +1,6 @@
 package com.mindata.riu.searcher.infrastructure.in.web.handler;
 
-import com.mindata.riu.searcher.infrastructure.in.web.dto.response.HandlerResponse;
+import com.mindata.riu.searcher.infrastructure.in.web.handler.dto.HandlerResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;

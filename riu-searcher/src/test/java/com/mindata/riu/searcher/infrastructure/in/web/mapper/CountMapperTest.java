@@ -1,4 +1,4 @@
-package com.mindata.riu.searcher.infrastructure.web.mapper;
+package com.mindata.riu.searcher.infrastructure.in.web.mapper;
 
 import com.mindata.riu.searcher.domain.model.SearchCount;
 import com.mindata.riu.searcher.factory.TestClassBuilder;

@@ -2,7 +2,7 @@ package com.mindata.riu.searcher.infrastructure.in.web.handler;
 
 import com.mindata.riu.searcher.domain.exception.search.CheckInAfterCheckOutException;
 import com.mindata.riu.searcher.domain.exception.search.InvalidSearchCriteriaException;
-import com.mindata.riu.searcher.infrastructure.in.web.dto.response.HandlerResponse;
+import com.mindata.riu.searcher.infrastructure.in.web.handler.dto.HandlerResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -1,4 +1,4 @@
-package com.mindata.riu.searcher.infrastructure.web.dto.request;
+package com.mindata.riu.searcher.infrastructure.in.web.request;
 
 import com.mindata.riu.searcher.domain.exception.search.CheckInAfterCheckOutException;
 import com.mindata.riu.searcher.infrastructure.in.web.dto.request.SearchRequestDTO;

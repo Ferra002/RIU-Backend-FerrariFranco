@@ -1,4 +1,4 @@
-package com.mindata.riu.searcher.infrastructure.web.controller;
+package com.mindata.riu.searcher.infrastructure.in.web.controller;
 
 import com.mindata.riu.searcher.application.port.out.event.SearchEventPublisher;
 import com.mindata.riu.searcher.application.port.out.repository.SearchRepository;
@@ -96,7 +96,7 @@ class RestSearchTest {
                         .content(objectMapper.writeValueAsString(body))
                 )
                 .andExpectAll(
-                        status().isOk(),
+                        status().isCreated(),
                         content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON),
                         jsonPath("$.searchId").exists(),
                         jsonPath("$.searchId").isNotEmpty()

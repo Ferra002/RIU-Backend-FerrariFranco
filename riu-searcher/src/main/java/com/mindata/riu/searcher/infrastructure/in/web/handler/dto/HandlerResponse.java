@@ -1,4 +1,4 @@
-package com.mindata.riu.searcher.infrastructure.in.web.dto.response;
+package com.mindata.riu.searcher.infrastructure.in.web.handler.dto;
 
 public record HandlerResponse(
 
