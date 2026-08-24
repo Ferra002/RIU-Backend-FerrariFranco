@@ -5,9 +5,11 @@ import com.mindata.riu.searcher.domain.model.SearchCriteria;
 import com.mindata.riu.searcher.factory.TestClassBuilder;
 import com.mindata.riu.searcher.infrastructure.in.web.dto.request.SearchRequestDTO;
 import com.mindata.riu.searcher.infrastructure.in.web.dto.response.SearchResponseDTO;
-import com.mindata.riu.searcher.infrastructure.in.web.mapper.SearchMapper;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
+
+import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,6 +38,25 @@ class SearchMapperTest {
     }
 
     @Test
+    void toCriteriaNull(){
+        assertNull(mapper.toCriteria(null));
+    }
+
+    @Test
+    void toCriteriaNullAges(){
+        SearchRequestDTO dto = new SearchRequestDTO(
+            "5923Eba",
+            LocalDate.MIN,
+            LocalDate.MAX,
+            null
+        );
+        SearchCriteria result = mapper.toCriteria(dto);
+
+        assertNotNull(result);
+        assertNull(result.ages());
+    }
+
+    @Test
     void toResponse() {
         Search search = TestClassBuilder.SEARCH;
         SearchResponseDTO mapped = mapper.toResponse(search);
@@ -47,4 +68,10 @@ class SearchMapperTest {
                 () -> assertEquals(mapped.searchId(), search.searchId())
         );
     }
+
+    @Test
+    void toResponseNull(){
+        assertNull(mapper.toResponse(null));
+    }
+
 }

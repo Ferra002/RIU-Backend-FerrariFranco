@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 
 public class HandlerResponseBuilder {
 
+    private HandlerResponseBuilder(){
+    }
+
     public static HandlerResponse build(
             HttpStatus status,
             String message
