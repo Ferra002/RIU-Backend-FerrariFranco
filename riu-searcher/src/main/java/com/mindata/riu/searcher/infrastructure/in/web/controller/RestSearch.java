@@ -27,7 +27,11 @@ public class RestSearch {
     private final SearchUseCase searchUseCase;
 
     @GetMapping("/count")
-    public ResponseEntity<CountResponseDTO> count(@RequestParam @NotBlank String searchId){
+    public ResponseEntity<CountResponseDTO> count(
+        @RequestParam
+        @NotBlank(message = "El parámetro 'seachId' no puede ser nulo o estar vacío")
+        String searchId
+    ){
         return ResponseEntity.ok(
                 countMapper.toResponse(countUseCase.count(searchId))
         );
