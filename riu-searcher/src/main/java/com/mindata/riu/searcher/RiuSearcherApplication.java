@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RiuApplication {
+public class RiuSearcherApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RiuApplication.class, args);
+		SpringApplication.run(RiuSearcherApplication.class, args);
 	}
 
 }
