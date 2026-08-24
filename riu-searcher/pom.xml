@@ -20,7 +20,7 @@
 		</developer>
 	</developers>
 	<scm>
-		<url>https://github.com/Ferra002/demo-mindata-riu</url>
+		<url>https://github.com/Ferra002/RIU-Backend-FerrariFranco</url>
 	</scm>
 	<properties>
 		<java.version>26</java.version>
