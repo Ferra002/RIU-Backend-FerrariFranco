@@ -1,9 +1,9 @@
-package com.mindata.riu.application.port.out.dto;
+package com.mindata.riu.infrastructure.in.web.dto.response;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public record SearchResultDTO(
+public record CountSearchDTO (
 
         String hotelId,
         LocalDate checkIn,

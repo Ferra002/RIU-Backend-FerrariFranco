@@ -1,4 +1,4 @@
-package com.mindata.riu.infrastructure.web.dto.request;
+package com.mindata.riu.infrastructure.in.web.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 

@@ -1,12 +1,13 @@
 package com.mindata.riu.factory;
 
 import com.mindata.riu.application.port.out.dto.SearchRepositoryDTO;
-import com.mindata.riu.application.port.out.dto.SearchResultDTO;
 import com.mindata.riu.domain.model.Search;
 import com.mindata.riu.domain.model.SearchCount;
 import com.mindata.riu.domain.model.SearchCriteria;
-import com.mindata.riu.infrastructure.web.dto.request.CountRequestDTO;
-import com.mindata.riu.infrastructure.web.dto.request.SearchRequestDTO;
+import com.mindata.riu.infrastructure.in.web.dto.request.CountRequestDTO;
+import com.mindata.riu.infrastructure.in.web.dto.request.SearchRequestDTO;
+import com.mindata.riu.infrastructure.out.kafka.dto.SearchEvent;
+import com.mindata.riu.infrastructure.out.persistence.entity.SearchEntity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,13 +16,10 @@ public class TestClassBuilder {
 
     public static final SearchRepositoryDTO SEARCH_REPOSITORY_DTO = new SearchRepositoryDTO(
             "search-id",
-            new SearchResultDTO(
-                    "1234aBc",
-                    LocalDate.MIN,
-                    LocalDate.MAX,
-                    List.of(1,2,3)
-            ),
-            100
+            "1234aBc",
+            LocalDate.MIN,
+            LocalDate.MAX,
+            List.of(1,2,3)
     );
 
     public static final SearchCount SEARCH_COUNT = new SearchCount(
@@ -49,6 +47,22 @@ public class TestClassBuilder {
     );
 
     public static final SearchCriteria SEARCH_CRITERIA = new SearchCriteria(
+        "valid-hotel",
+        LocalDate.MIN,
+        LocalDate.MAX,
+        List.of(1,2,3)
+    );
+
+    public static final SearchEntity SEARCH_ENTITY = new SearchEntity(
+        0L,
+        "search-id",
+        "hotel-id",
+        LocalDate.MIN,
+        LocalDate.MAX,
+        List.of(1,2,3)
+    );
+
+    public static final SearchEvent SEARCH_EVENT = new SearchEvent(
         "valid-hotel",
         LocalDate.MIN,
         LocalDate.MAX,

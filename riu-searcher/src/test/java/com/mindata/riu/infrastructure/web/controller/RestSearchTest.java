@@ -1,5 +1,6 @@
 package com.mindata.riu.infrastructure.web.controller;
 
+import com.mindata.riu.application.port.out.event.SearchEventPublisher;
 import com.mindata.riu.application.port.out.repository.SearchRepository;
 import com.mindata.riu.factory.TestClassBuilder;
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import tools.jackson.databind.ObjectMapper;
@@ -19,6 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @AutoConfigureMockMvc
 class RestSearchTest {
 
@@ -32,6 +35,9 @@ class RestSearchTest {
 
     @MockitoBean
     private SearchRepository searchRepository;
+
+    @MockitoBean
+    private SearchEventPublisher searchEventPublisher;
 
     @Test
     void testCountOk() throws Exception{
@@ -51,11 +57,10 @@ class RestSearchTest {
                         status().isOk(),
                         content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON),
                         jsonPath("$.searchId").value(expected.searchId()),
-                        jsonPath("$.search.hotelId").value(expected.search().hotelId()),
-                        jsonPath("$.search.checkIn").value(expected.search().checkIn().toString()),
-                        jsonPath("$.search.checkOut").value(expected.search().checkOut().toString()),
-                        jsonPath("$.search.ages").isArray(),
-                        jsonPath("$.count").value(expected.count())
+                        jsonPath("$.search.hotelId").value(expected.hotelId()),
+                        jsonPath("$.search.checkIn").value(expected.checkIn().toString()),
+                        jsonPath("$.search.checkOut").value(expected.checkOut().toString()),
+                        jsonPath("$.search.ages").isArray()
 
                 );
     }

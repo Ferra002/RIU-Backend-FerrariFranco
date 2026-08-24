@@ -1,13 +1,13 @@
-package com.mindata.riu.infrastructure.web.controller;
+package com.mindata.riu.infrastructure.in.web.controller;
 
 import com.mindata.riu.application.port.in.CountUseCase;
 import com.mindata.riu.application.port.in.SearchUseCase;
-import com.mindata.riu.infrastructure.web.dto.request.CountRequestDTO;
-import com.mindata.riu.infrastructure.web.dto.request.SearchRequestDTO;
-import com.mindata.riu.infrastructure.web.dto.response.CountResponseDTO;
-import com.mindata.riu.infrastructure.web.dto.response.SearchResponseDTO;
-import com.mindata.riu.infrastructure.web.mapper.CountMapper;
-import com.mindata.riu.infrastructure.web.mapper.SearchMapper;
+import com.mindata.riu.infrastructure.in.web.dto.request.CountRequestDTO;
+import com.mindata.riu.infrastructure.in.web.dto.request.SearchRequestDTO;
+import com.mindata.riu.infrastructure.in.web.dto.response.CountResponseDTO;
+import com.mindata.riu.infrastructure.in.web.dto.response.SearchResponseDTO;
+import com.mindata.riu.infrastructure.in.web.mapper.CountMapper;
+import com.mindata.riu.infrastructure.in.web.mapper.SearchMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

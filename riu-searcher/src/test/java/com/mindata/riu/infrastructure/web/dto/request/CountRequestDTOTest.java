@@ -1,8 +1,8 @@
 package com.mindata.riu.infrastructure.web.dto.request;
 
+import com.mindata.riu.infrastructure.in.web.dto.request.CountRequestDTO;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

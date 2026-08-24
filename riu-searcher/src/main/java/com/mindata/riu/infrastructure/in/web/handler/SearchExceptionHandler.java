@@ -1,4 +1,4 @@
-package com.mindata.riu.infrastructure.web.handler;
+package com.mindata.riu.infrastructure.in.web.handler;
 
 import com.mindata.riu.domain.exception.search.SearchNotFoundException;
 import org.springframework.http.HttpStatus;

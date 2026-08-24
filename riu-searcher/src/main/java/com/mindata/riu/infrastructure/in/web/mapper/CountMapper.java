@@ -1,7 +1,7 @@
-package com.mindata.riu.infrastructure.web.mapper;
+package com.mindata.riu.infrastructure.in.web.mapper;
 
 import com.mindata.riu.domain.model.SearchCount;
-import com.mindata.riu.infrastructure.web.dto.response.CountResponseDTO;
+import com.mindata.riu.infrastructure.in.web.dto.response.CountResponseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 

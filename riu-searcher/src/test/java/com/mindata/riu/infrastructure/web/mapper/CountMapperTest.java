@@ -2,7 +2,8 @@ package com.mindata.riu.infrastructure.web.mapper;
 
 import com.mindata.riu.domain.model.SearchCount;
 import com.mindata.riu.factory.TestClassBuilder;
-import com.mindata.riu.infrastructure.web.dto.response.CountResponseDTO;
+import com.mindata.riu.infrastructure.in.web.dto.response.CountResponseDTO;
+import com.mindata.riu.infrastructure.in.web.mapper.CountMapper;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 

@@ -1,4 +1,4 @@
-package com.mindata.riu.infrastructure.web.dto.response;
+package com.mindata.riu.infrastructure.in.web.dto.response;
 
 public record CountResponseDTO(
 

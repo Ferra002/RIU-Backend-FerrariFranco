@@ -1,4 +1,4 @@
-package com.mindata.riu.infrastructure.web.dto.request;
+package com.mindata.riu.infrastructure.in.web.dto.request;
 
 import com.mindata.riu.domain.exception.search.CheckInAfterCheckOutException;
 import jakarta.validation.constraints.Min;

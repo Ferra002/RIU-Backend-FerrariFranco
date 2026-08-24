@@ -4,6 +4,7 @@ import com.mindata.riu.application.mapper.SearchRepositoryMapper;
 import com.mindata.riu.application.port.out.repository.SearchRepository;
 import com.mindata.riu.application.port.out.dto.SearchRepositoryDTO;
 import com.mindata.riu.domain.model.SearchCount;
+import com.mindata.riu.domain.model.SearchCriteria;
 import com.mindata.riu.factory.TestClassBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,16 +32,16 @@ class CountServiceTest {
     @Test
     void count() {
         SearchRepositoryDTO searchRepositoryDto = TestClassBuilder.SEARCH_REPOSITORY_DTO;
-        SearchCount expected = TestClassBuilder.SEARCH_COUNT;
+        SearchCriteria expected = TestClassBuilder.SEARCH_CRITERIA;
 
         when(repository.findBySearchId(searchRepositoryDto.searchId())).thenReturn(Optional.of(searchRepositoryDto));
-        when(mapper.toCount(searchRepositoryDto)).thenReturn(expected);
+        when(mapper.toSearchCriteria(searchRepositoryDto)).thenReturn(expected);
 
         SearchCount result = countService.count(searchRepositoryDto.searchId());
         assertAll(
                 () -> assertNotNull(result),
                 () -> verify(repository).findBySearchId(searchRepositoryDto.searchId()),
-                () -> verify(mapper).toCount(searchRepositoryDto)
+                () -> verify(mapper).toSearchCriteria(searchRepositoryDto)
         );
     }
 }

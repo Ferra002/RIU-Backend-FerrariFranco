@@ -3,8 +3,9 @@ package com.mindata.riu.infrastructure.web.mapper;
 import com.mindata.riu.domain.model.Search;
 import com.mindata.riu.domain.model.SearchCriteria;
 import com.mindata.riu.factory.TestClassBuilder;
-import com.mindata.riu.infrastructure.web.dto.request.SearchRequestDTO;
-import com.mindata.riu.infrastructure.web.dto.response.SearchResponseDTO;
+import com.mindata.riu.infrastructure.in.web.dto.request.SearchRequestDTO;
+import com.mindata.riu.infrastructure.in.web.dto.response.SearchResponseDTO;
+import com.mindata.riu.infrastructure.in.web.mapper.SearchMapper;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 

@@ -1,4 +1,4 @@
-package com.mindata.riu.infrastructure.web.handler;
+package com.mindata.riu.infrastructure.in.web.handler;
 
 import org.springframework.http.HttpStatus;
 import tools.jackson.databind.ObjectMapper;

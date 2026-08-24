@@ -1,6 +1,7 @@
 package com.mindata.riu.infrastructure.web.dto.request;
 
 import com.mindata.riu.domain.exception.search.CheckInAfterCheckOutException;
+import com.mindata.riu.infrastructure.in.web.dto.request.SearchRequestDTO;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.BeforeAll;
