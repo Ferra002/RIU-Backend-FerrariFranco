@@ -4,7 +4,6 @@ import com.mindata.riu.searcher.application.port.out.dto.SearchRepositoryDTO;
 import com.mindata.riu.searcher.domain.model.Search;
 import com.mindata.riu.searcher.domain.model.SearchCount;
 import com.mindata.riu.searcher.domain.model.SearchCriteria;
-import com.mindata.riu.searcher.infrastructure.in.web.dto.request.CountRequestDTO;
 import com.mindata.riu.searcher.infrastructure.in.web.dto.request.SearchRequestDTO;
 import com.mindata.riu.searcher.infrastructure.out.kafka.dto.SearchEvent;
 import com.mindata.riu.searcher.infrastructure.out.persistence.entity.SearchEntity;
@@ -32,8 +31,6 @@ public class TestClassBuilder {
             ),
             100
     );
-
-    public static final CountRequestDTO COUNT_REQUEST_DTO = new CountRequestDTO("search-id");
 
     public static final SearchRequestDTO SEARCH_REQUEST_DTO = new SearchRequestDTO(
             "5923Eba",

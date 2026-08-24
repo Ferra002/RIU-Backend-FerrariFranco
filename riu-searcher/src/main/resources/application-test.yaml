@@ -1,6 +1,6 @@
 spring:
   application:
-    name: riu
+    name: riu-searcher
   jpa:
     hibernate:
       ddl-auto: create-drop

@@ -1,0 +1,31 @@
+server:
+  port: 3001
+
+spring:
+  application:
+    name: riu-writer
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/FREEPDB1
+    username: riu_user
+    password: RiuUserPassword123
+    driver-class-name: oracle.jdbc.OracleDriver
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
+    consumer:
+      group-id: riu-writer
+      auto-offset-reset: earliest
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.deserializer.key.delegate.class: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+        spring.json.key.default.type: com.mindata.riu.writer.infrastructure.in.kafka.dto.SearchKey
+        spring.json.value.default.type: com.mindata.riu.writer.infrastructure.in.kafka.dto.SearchEvent
+        spring.json.trusted.packages: com.mindata.riu.writer.infrastructure.in.kafka.dto
+        spring.json.use.type.headers: false

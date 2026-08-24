@@ -41,17 +41,16 @@ class RestSearchTest {
 
     @Test
     void testCountOk() throws Exception{
-        var body = TestClassBuilder.COUNT_REQUEST_DTO;
+        String searchId = "search-id";
         var expected = TestClassBuilder.SEARCH_REPOSITORY_DTO;
 
-        given(searchRepository.findBySearchId(body.searchId()))
+        given(searchRepository.findBySearchId(searchId))
                 .willReturn(Optional.of(expected));
 
         mockMvc.perform(
                 get(BASE_PATH + "/count")
-                        .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(body))
+                        .param("searchId", searchId)
                 )
                 .andExpectAll(
                         status().isOk(),
@@ -78,13 +77,10 @@ class RestSearchTest {
 
     @Test
     void testCountNotFound() throws Exception{
-        var body = TestClassBuilder.COUNT_REQUEST_DTO;
-
         mockMvc.perform(
                 get(BASE_PATH + "/count")
-                        .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(body))
+                        .param("searchId", "search-id")
                 )
                 .andExpect(status().isNotFound());
     }

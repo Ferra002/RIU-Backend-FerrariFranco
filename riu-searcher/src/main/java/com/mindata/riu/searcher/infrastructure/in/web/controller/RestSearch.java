@@ -2,22 +2,20 @@ package com.mindata.riu.searcher.infrastructure.in.web.controller;
 
 import com.mindata.riu.searcher.application.port.in.CountUseCase;
 import com.mindata.riu.searcher.application.port.in.SearchUseCase;
-import com.mindata.riu.searcher.infrastructure.in.web.dto.request.CountRequestDTO;
 import com.mindata.riu.searcher.infrastructure.in.web.dto.request.SearchRequestDTO;
 import com.mindata.riu.searcher.infrastructure.in.web.dto.response.CountResponseDTO;
 import com.mindata.riu.searcher.infrastructure.in.web.dto.response.SearchResponseDTO;
 import com.mindata.riu.searcher.infrastructure.in.web.mapper.CountMapper;
 import com.mindata.riu.searcher.infrastructure.in.web.mapper.SearchMapper;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@Validated
 @RequiredArgsConstructor
 @RequestMapping("/api/hotel-search/v1")
 public class RestSearch {
@@ -29,9 +27,9 @@ public class RestSearch {
     private final SearchUseCase searchUseCase;
 
     @GetMapping("/count")
-    public ResponseEntity<CountResponseDTO> count(@RequestBody @Valid CountRequestDTO request){
+    public ResponseEntity<CountResponseDTO> count(@RequestParam @NotBlank String searchId){
         return ResponseEntity.ok(
-                countMapper.toResponse(countUseCase.count(request.searchId()))
+                countMapper.toResponse(countUseCase.count(searchId))
         );
     }
 

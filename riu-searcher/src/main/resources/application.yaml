@@ -1,6 +1,9 @@
+server:
+  port: 3000
+
 spring:
   application:
-    name: riu
+    name: riu-searcher
   jpa:
     hibernate:
       ddl-auto: update
