@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: riu-writer
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+  datasource:
+    url: jdbc:h2:mem:riu_test;MODE=Oracle;DB_CLOSE_DELAY=-1
+    username: local_riu_user
+    password:
+    driver-class-name: org.h2.Driver
+  kafka:
+    bootstrap-servers: localhost:9092
+    listener:
+      auto-startup: false
+    admin:
+      auto-create: false
+    consumer:
+      group-id: riu-writer-test
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.deserializer.key.delegate.class: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+        spring.json.key.default.type: com.mindata.riu.writer.infrastructure.in.kafka.dto.SearchKey
+        spring.json.value.default.type: com.mindata.riu.writer.infrastructure.in.kafka.dto.SearchEvent
+        spring.json.trusted.packages: com.mindata.riu.writer.infrastructure.in.kafka.dto

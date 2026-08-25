@@ -1,0 +1,74 @@
+version: "3.8"
+
+services:
+  oracle:
+    image: gvenzl/oracle-free:latest
+    container_name: oracle_database
+    ports:
+      - "1521:1521"
+    environment:
+      - ORACLE_PASSWORD=SuperSecretPassword123
+      - APP_USER=riu_user
+      - APP_USER_PASSWORD=RiuUserPassword123
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+
+  kafka:
+    image: apache/kafka:4.3.1
+    container_name: riu-kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list >/dev/null 2>&1"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  riu-searcher:
+    build:
+      context: ./riu-searcher
+      dockerfile: Dockerfile
+    container_name: riu-searcher
+    ports:
+      - "3500:3500"
+    depends_on:
+      oracle:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+  riu-writer:
+    build:
+      context: ./riu-writer
+      dockerfile: Dockerfile
+    container_name: riu-writer
+    ports:
+      - "3501:3501"
+    depends_on:
+      oracle:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+
+volumes:
+  oracle_data:
