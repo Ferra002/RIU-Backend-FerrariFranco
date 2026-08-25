@@ -6,6 +6,9 @@ import com.mindata.riu.writer.factory.TestClassBuilder;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SearchRepositoryMapperTest {
@@ -24,6 +27,28 @@ class SearchRepositoryMapperTest {
             () -> assertEquals(expected.checkIn(), result.checkIn()),
             () -> assertEquals(expected.checkOut(), result.checkOut()),
             () -> assertEquals(expected.ages(), result.ages())
+        );
+    }
+
+    @Test
+    void toDtoNull(){
+        assertNull(mapper.toDto(null));
+    }
+
+    @Test
+    void toDtoNullAge() {
+        SearchCriteria expected = new SearchCriteria(
+            "search-id",
+            "abcde123",
+            LocalDate.MIN,
+            LocalDate.MAX,
+            null
+        );
+        SearchRepositoryDTO result = mapper.toDto(expected);
+
+        assertAll(
+            () -> assertNotNull(result),
+            () -> assertNull(result.ages())
         );
     }
 }
