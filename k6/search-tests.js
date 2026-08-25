@@ -15,7 +15,7 @@ export default function () {
     });
 
     const response = http.post(
-        'http://localhost:3000/api/hotel-search/v1/search',
+        'http://localhost:3500/api/hotel-search/v1/search',
         payload,
         {
             headers: {

@@ -1,5 +1,5 @@
 server:
-  port: 3000
+  port: 3500
 
 spring:
   application:
@@ -8,12 +8,12 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521/FREEPDB1
+    url: jdbc:oracle:thin:@oracle:1521/FREEPDB1
     username: riu_user
     password: RiuUserPassword123
     driver-class-name: oracle.jdbc.OracleDriver
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka:9092
     producer:
       key-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
       value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
