@@ -1,5 +1,5 @@
 import http from 'k6/http'
-import { check } from 'k6'
+import { check, sleep } from 'k6'
 
 export const options = {
   vus: 100,
@@ -33,26 +33,37 @@ export default function () {
         'has searchId': () => searchId != null,
     });
 
-    const getResponse = http.get(
-        `http://localhost:3500/count?searchId=${searchId}`
-    );
+    let getResponse;
+    let attempts = 0;
+
+    // Wait for eventual consistency
+    do {
+        getResponse = http.get(
+            `http://localhost:3500/count?searchId=${searchId}`
+        );
+
+        if(getResponse.status === 200) break;
+
+        attempts++;
+        sleep(0.2);
+    } while(attempts < 10)
 
     const getResponseBody = getResponse.json();
 
-    check(getResponseBody, {
+    check(getResponse, {
         'status is 200': (r) => r.status === 200,
         'has searchId': () => getResponseBody.searchId != null,
         'is searchId same': () => getResponseBody.searchId === searchId,
         'has search': () => getResponseBody.search != null,
-        'has hotelId': () => getResponseBody.search.hotelId != null,
-        'is hotelId same': () => getResponseBody.hotelId === search.hotelId,
-        'has checkIn': () => getResponseBody.search.checkIn != null,
-        'is checkIn same': () => getResponseBody.checkIn === search.checkIn,
-        'has checkOut': () => getResponseBody.search.checkOut != null,
-        'is checkOut same': () => getResponseBody.checkOut === search.checkOut,
-        'has ages': () => getResponseBody.search.ages != null,
+        'has hotelId': () => getResponseBody.search?.hotelId != null,
+        'is hotelId same': () => getResponseBody.search?.hotelId === search.hotelId,
+        'has checkIn': () => getResponseBody.search?.checkIn != null,
+        'is checkIn same': () => getResponseBody.search?.checkIn === search.checkIn,
+        'has checkOut': () => getResponseBody.search?.checkOut != null,
+        'is checkOut same': () => getResponseBody.search?.checkOut === search.checkOut,
+        'has ages': () => getResponseBody.search?.ages != null,
         'is ages same': () =>
-            JSON.stringify(getResponseBody.ages) === JSON.stringify(search.ages),
+            JSON.stringify(getResponseBody.search?.ages) === JSON.stringify(search.ages),
         'has count': () => getResponseBody.count != null
     });
 
