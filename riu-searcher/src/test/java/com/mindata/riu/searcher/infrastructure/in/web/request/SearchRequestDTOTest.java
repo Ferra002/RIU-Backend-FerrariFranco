@@ -6,8 +6,11 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,98 +53,40 @@ class SearchRequestDTOTest {
                 ));
     }
 
-    @Test
-    void agesBelowZero(){
-        var dto = new SearchRequestDTO(
-                "valid-hotel",
-                LocalDate.MIN,
-                LocalDate.MAX,
-                List.of(1,2,-1)
-        );
+    @ParameterizedTest(name = "{0}")
+    @CsvSource(value = {
+            "Ages below Zero, valid-hotel, 2020-01-01, 2030-12-12, '1,2,-1'",
+            "Null Hotel Id, null, 2020-01-01, 2030-12-12, '1,2,3'",
+            "Blank Hotel Id, '', 2020-01-01, 2030-12-12, '1,2,3'",
+            "Null Check In, valid-hotel, null, 2030-12-12, '1,2,3'",
+            "Null Check Out, valid-hotel, 2020-01-01, null, '1,2,3'",
+            "Null Ages, valid-hotel, 2020-01-01, 2030-12-12, null",
+            "Empty Ages, valid-hotel, 2020-01-01, 2030-12-12, ''"
+    }, nullValues = "null")
+    void testInvalidSearchRequest(
+            String caseName,
+            String hotelId,
+            LocalDate checkIn,
+            LocalDate checkOut,
+            String ages
+    ){
+        List<Integer> agesList;
 
-        var violations = validator.validate(dto);
+        if(ages == null){
+            agesList = null;
+        } else if (ages.isBlank()){
+            agesList = List.of();
+        } else {
+            agesList = Arrays.stream(ages.split(","))
+                    .map(Integer::parseInt)
+                    .toList();
+        }
 
-        assertFalse(violations.isEmpty());
-    }
-
-    @Test
-    void nullHotelId() {
-        var dto = new SearchRequestDTO(
-                null,
-                LocalDate.MIN,
-                LocalDate.MAX,
-                List.of(1,2,-1)
-        );
-
-        var violations = validator.validate(dto);
-
-        assertFalse(violations.isEmpty());
-    }
-
-    @Test
-    void blankHotelId() {
-        var dto = new SearchRequestDTO(
-                "",
-                LocalDate.MIN,
-                LocalDate.MAX,
-                List.of(1,2,-1)
-        );
-
-        var violations = validator.validate(dto);
-
-        assertFalse(violations.isEmpty());
-    }
-
-    @Test
-    void nullCheckIn() {
-        var dto = new SearchRequestDTO(
-                "valid-hotel",
-                null,
-                LocalDate.MAX,
-                List.of(1,2,-1)
-        );
-
-        var violations = validator.validate(dto);
-
-        assertFalse(violations.isEmpty());
-    }
-
-    @Test
-    void nullCheckOut() {
-        var dto = new SearchRequestDTO(
-                "valid-hotel",
-                LocalDate.MIN,
-                null,
-                List.of(1,2,-1)
-        );
-
-        var violations = validator.validate(dto);
-
-        assertFalse(violations.isEmpty());
-    }
-
-
-    @Test
-    void nullAges() {
-        var dto = new SearchRequestDTO(
-                "valid-hotel",
-                LocalDate.MIN,
-                LocalDate.MAX,
-                null
-        );
-
-        var violations = validator.validate(dto);
-
-        assertFalse(violations.isEmpty());
-    }
-
-    @Test
-    void emptyAges() {
-        var dto = new SearchRequestDTO(
-                "valid-hotel",
-                LocalDate.MIN,
-                LocalDate.MAX,
-                List.of()
+        SearchRequestDTO dto = new SearchRequestDTO(
+                hotelId,
+                checkIn,
+                checkOut,
+                agesList
         );
 
         var violations = validator.validate(dto);
