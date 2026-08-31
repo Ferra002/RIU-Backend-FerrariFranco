@@ -54,8 +54,10 @@ class CountMapperTest {
             100
         ));
 
-        assertNotNull(response);
-        assertNull(response.search());
+        assertAll(
+                () -> assertNotNull(response),
+                () -> assertNotNull(response.search())
+        );
     }
 
     @Test
@@ -71,9 +73,11 @@ class CountMapperTest {
             100
         ));
 
-        assertNotNull(response);
-        assertNotNull(response.search());
-        assertNull(response.search().ages());
+        assertAll(
+                () -> assertNotNull(response),
+                () -> assertNotNull(response.search()),
+                () -> assertNull(response.search().ages())
+        );
     }
 
 }
