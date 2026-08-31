@@ -25,8 +25,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class RestSearchTest {
 
-    private static final String BASE_PATH = "/api/hotel-search/v1";
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -48,7 +46,7 @@ class RestSearchTest {
                 .willReturn(Optional.of(expected));
 
         mockMvc.perform(
-                get(BASE_PATH + "/count")
+                get("/count")
                         .accept(MediaType.APPLICATION_JSON)
                         .param("searchId", searchId)
                 )
@@ -67,7 +65,7 @@ class RestSearchTest {
     @Test
     void testCountInvalidBody() throws Exception {
         mockMvc.perform(
-                get(BASE_PATH + "/count")
+                get("/count")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content("{}")
@@ -78,7 +76,7 @@ class RestSearchTest {
     @Test
     void testCountNotFound() throws Exception{
         mockMvc.perform(
-                get(BASE_PATH + "/count")
+                get("/count")
                         .accept(MediaType.APPLICATION_JSON)
                         .param("searchId", "search-id")
                 )
@@ -90,7 +88,7 @@ class RestSearchTest {
         var body = TestClassBuilder.SEARCH_REQUEST_DTO;
 
         mockMvc.perform(
-                post(BASE_PATH + "/search")
+                post("/search")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(body))
@@ -106,7 +104,7 @@ class RestSearchTest {
     @Test
     void testSearchInvalidBody() throws Exception{
         mockMvc.perform(
-                        post(BASE_PATH + "/search")
+                        post("/search")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .content("{}")
