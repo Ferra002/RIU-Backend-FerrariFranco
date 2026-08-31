@@ -37,12 +37,16 @@ class SearchRequestDTOTest {
 
     @Test
     void checkOutBeforeCheckIn(){
+        LocalDate checkIn = LocalDate.MAX;
+        LocalDate checkOut = LocalDate.MIN;
+        List<Integer> ages = List.of(1,2,3);
+
         assertThrows(CheckInAfterCheckOutException.class,
                 () -> new SearchRequestDTO(
                         "valid-hotel",
-                        LocalDate.MAX,
-                        LocalDate.MIN,
-                        List.of(1,2,3)
+                        checkIn,
+                        checkOut,
+                        ages
                 ));
     }
 
