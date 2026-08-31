@@ -1,9 +1,11 @@
 package com.mindata.riu.searcher.domain.exception.search;
 
+import com.mindata.riu.searcher.domain.exception.RiuBaseException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class CheckInAfterCheckOutException extends SearchException {
+public class CheckInAfterCheckOutException extends RiuBaseException {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
