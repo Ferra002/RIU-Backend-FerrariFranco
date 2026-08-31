@@ -7,6 +7,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  threads:
+    virtual:
+      enabled: true
   datasource:
     url: jdbc:oracle:thin:@oracle:1521/FREEPDB1
     username: riu_user

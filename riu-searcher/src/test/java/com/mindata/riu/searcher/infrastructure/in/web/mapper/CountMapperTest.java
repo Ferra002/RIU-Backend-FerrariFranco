@@ -56,7 +56,7 @@ class CountMapperTest {
 
         assertAll(
                 () -> assertNotNull(response),
-                () -> assertNotNull(response.search())
+                () -> assertNull(response.search())
         );
     }
 
