@@ -23,7 +23,7 @@
 		<url>https://github.com/Ferra002/RIU-Backend-FerrariFranco</url>
 	</scm>
 	<properties>
-		<java.version>26</java.version>
+		<java.version>25</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
