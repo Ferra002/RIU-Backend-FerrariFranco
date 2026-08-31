@@ -19,17 +19,17 @@ public class KafkaConfig {
     public DefaultErrorHandler errorHandler(KafkaTemplate<Object, Object> kafkaTemplate){
         var recover = new DeadLetterPublishingRecoverer(
             kafkaTemplate,
-            (record, ex) -> {
+            (consumerRecord, ex) -> {
                 log.error(
                     "Sending message to DLQ. Key: '{}'. Value: '{}'. Exception: ''",
-                    record.key(),
-                    record.value(),
+                    consumerRecord.key(),
+                    consumerRecord.value(),
                     ex
                 );
 
                 return new TopicPartition(
                     KafkaConstants.DQL_TOPIC,
-                    record.partition()
+                    consumerRecord.partition()
                 );
             }
         );

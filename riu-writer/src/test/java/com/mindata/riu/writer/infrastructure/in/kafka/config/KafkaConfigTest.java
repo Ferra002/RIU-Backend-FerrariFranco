@@ -45,7 +45,7 @@ class KafkaConfigTest {
     void testSendMessageToDlq(){
         DefaultErrorHandler errorHandler = kafkaConfig.errorHandler(kafkaTemplate);
 
-        ConsumerRecord<Object, Object> record = new ConsumerRecord<>(
+        ConsumerRecord<Object, Object> consumerRecord = new ConsumerRecord<>(
             "topic",
             1,
             0L,
@@ -58,7 +58,7 @@ class KafkaConfigTest {
 
         errorHandler.handleOne(
             new CheckInAfterCheckOutException(LocalDate.MAX, LocalDate.MIN),
-            record,
+            consumerRecord,
             consumer,
             messageListenerContainer
         );
