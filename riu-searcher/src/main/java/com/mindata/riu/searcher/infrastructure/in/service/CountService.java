@@ -2,7 +2,7 @@ package com.mindata.riu.searcher.infrastructure.in.service;
 
 import com.mindata.riu.searcher.application.mapper.SearchRepositoryMapper;
 import com.mindata.riu.searcher.application.port.in.CountUseCase;
-import com.mindata.riu.searcher.application.port.out.repository.SearchRepository;
+import com.mindata.riu.searcher.domain.repository.SearchRepository;
 import com.mindata.riu.searcher.application.exception.persistence.SearchNotFoundException;
 import com.mindata.riu.searcher.domain.model.SearchCount;
 import com.mindata.riu.searcher.domain.model.SearchCriteria;

@@ -1,7 +1,7 @@
 package com.mindata.riu.searcher.infrastructure.out.persistence.adapter;
 
-import com.mindata.riu.searcher.application.port.out.dto.SearchRepositoryDTO;
-import com.mindata.riu.searcher.application.port.out.repository.SearchRepository;
+import com.mindata.riu.searcher.domain.repository.dto.SearchRepositoryDTO;
+import com.mindata.riu.searcher.domain.repository.SearchRepository;
 import com.mindata.riu.searcher.domain.model.SearchCriteria;
 import com.mindata.riu.searcher.infrastructure.out.persistence.mapper.SearchPersistenceMapper;
 import com.mindata.riu.searcher.infrastructure.out.persistence.repository.JpaSearchRepository;

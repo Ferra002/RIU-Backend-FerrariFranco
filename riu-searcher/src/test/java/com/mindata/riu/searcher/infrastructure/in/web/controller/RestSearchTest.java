@@ -1,7 +1,7 @@
 package com.mindata.riu.searcher.infrastructure.in.web.controller;
 
 import com.mindata.riu.searcher.application.port.out.event.SearchEventPublisher;
-import com.mindata.riu.searcher.application.port.out.repository.SearchRepository;
+import com.mindata.riu.searcher.domain.repository.SearchRepository;
 import com.mindata.riu.searcher.factory.TestClassBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

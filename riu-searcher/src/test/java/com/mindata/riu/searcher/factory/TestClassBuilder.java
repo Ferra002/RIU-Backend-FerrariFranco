@@ -1,6 +1,6 @@
 package com.mindata.riu.searcher.factory;
 
-import com.mindata.riu.searcher.application.port.out.dto.SearchRepositoryDTO;
+import com.mindata.riu.searcher.domain.repository.dto.SearchRepositoryDTO;
 import com.mindata.riu.searcher.domain.model.Search;
 import com.mindata.riu.searcher.domain.model.SearchCount;
 import com.mindata.riu.searcher.domain.model.SearchCriteria;

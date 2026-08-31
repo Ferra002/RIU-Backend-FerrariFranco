@@ -1,6 +1,6 @@
-package com.mindata.riu.searcher.application.port.out.repository;
+package com.mindata.riu.searcher.domain.repository;
 
-import com.mindata.riu.searcher.application.port.out.dto.SearchRepositoryDTO;
+import com.mindata.riu.searcher.domain.repository.dto.SearchRepositoryDTO;
 import com.mindata.riu.searcher.domain.model.SearchCriteria;
 
 import java.util.Optional;

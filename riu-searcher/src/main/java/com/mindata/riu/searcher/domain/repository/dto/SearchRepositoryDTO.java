@@ -1,4 +1,4 @@
-package com.mindata.riu.searcher.application.port.out.dto;
+package com.mindata.riu.searcher.domain.repository.dto;
 
 import java.time.LocalDate;
 import java.util.List;
