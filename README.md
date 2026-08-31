@@ -58,17 +58,33 @@ http://localhost:3500/swagger-ui/index.html
 
 ## Endpoints
 
-### GET ```/api/hotel-search/v1/count?searchId={searchId}```
+### GET ```/count?searchId={searchId}```
 
 Consulta una búsqueda basándose en su identificador, y muestra la cantidad de búsquedas idénticas registradas.
 
 #### Ejemplo (URL)
 
 ```
-http://localhost:3500/api/hotel-search/v1/count?searchId=4f329977-8339-4d6f-9988-348f98ef4a1d
+http://localhost:3500/count?searchId=4f329977-8339-4d6f-9988-348f98ef4a1d
 ```
 
-### POST ```/api/hotel-search/v1/search```
+#### Ejemplo (RESPONSE)
+
+```
+{
+    
+    "searchId": "4f329977-8339-4d6f-9988-348f98ef4a1d",
+    "search": {
+        "hotelId": "1234aBc",
+        "checkIn": "29/12/2023",
+        "checkOut": "31/12/2023",
+        "ages": [3, 29, 30, 1]
+    },
+    count: 100
+}
+```
+
+### POST ```/search```
 
 Asigna un identificador a la búsqueda y la publica para su procesamiento.
 
@@ -80,5 +96,13 @@ Asigna un identificador a la búsqueda y la publica para su procesamiento.
     "checkIn": "2026-08-24",
     "checkOut": "2026-09-24",
     "ages": [59, 54, 24, 20]
+}
+```
+
+#### Ejemplo (RESPONSE)
+
+```
+{
+    "searchId": "4f329977-8339-4d6f-9988-348f98ef4a1d"
 }
 ```

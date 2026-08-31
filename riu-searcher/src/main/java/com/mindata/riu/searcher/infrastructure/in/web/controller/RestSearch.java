@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Validated
 @RequiredArgsConstructor
-@RequestMapping("/api/hotel-search/v1")
 @Tag(
     name = "Search",
     description = "Operaciones relacionadas con búsquedas"
