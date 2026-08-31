@@ -1,6 +1,6 @@
 package com.mindata.riu.writer.infrastructure.in.kafka.config;
 
-import com.mindata.riu.writer.domain.exception.search.SearchException;
+import com.mindata.riu.writer.domain.exception.search.CheckInAfterCheckOutException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.TopicPartition;
@@ -42,7 +42,7 @@ public class KafkaConfig {
         errorHandler.addNotRetryableExceptions(
             IllegalArgumentException.class,
             ConstraintViolationException.class,
-            SearchException.class
+            CheckInAfterCheckOutException.class
         );
 
         return errorHandler;
