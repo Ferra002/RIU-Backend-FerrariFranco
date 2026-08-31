@@ -1,4 +1,4 @@
-package com.mindata.riu.searcher.application.service;
+package com.mindata.riu.searcher.infrastructure.in.service;
 
 import com.mindata.riu.searcher.application.port.in.SearchUseCase;
 import com.mindata.riu.searcher.application.port.out.event.SearchEventPublisher;

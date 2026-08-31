@@ -1,4 +1,4 @@
-package com.mindata.riu.searcher.application.service;
+package com.mindata.riu.searcher.infrastructure.in.service;
 
 import com.mindata.riu.searcher.application.mapper.SearchRepositoryMapper;
 import com.mindata.riu.searcher.application.port.out.repository.SearchRepository;

@@ -1,4 +1,4 @@
-package com.mindata.riu.writer.application.service;
+package com.mindata.riu.writer.infrastructure.in.service;
 
 import com.mindata.riu.writer.application.mapper.SearchRepositoryMapper;
 import com.mindata.riu.writer.application.port.in.ProcessSearchUseCase;
