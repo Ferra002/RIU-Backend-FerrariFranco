@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,6 +42,22 @@ class SearchPersistenceMapperTest {
     }
 
     @Test
+    void toDtoNullRawAges(){
+        SearchEntity entity = new SearchEntity(
+                0L,
+                "search-id",
+                "hotel-id",
+                LocalDate.MIN,
+                LocalDate.MAX,
+                null,
+                List.of(1,2,3)
+        );
+        SearchRepositoryDTO result = mapper.toDto(entity);
+
+        assertNotNull(result);
+    }
+
+    @Test
     void toDtoNullAge(){
         SearchEntity entity = new SearchEntity(
             0L,
@@ -48,6 +65,7 @@ class SearchPersistenceMapperTest {
             "hotel-id",
             LocalDate.MIN,
             LocalDate.MAX,
+            "1,2,3",
             null
         );
         SearchRepositoryDTO result = mapper.toDto(entity);

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -25,13 +26,14 @@ public class SearchRepositoryAdapter implements SearchRepository {
     @Override
     public Integer countEqualSearches(SearchCriteria searchCriteria) {
         return Math.toIntExact(
-            repository.findAllByHotelIdAndCheckInEqualsAndCheckOutEquals(
+            repository.countByHotelIdAndCheckInEqualsAndCheckOutEqualsAndRawAgesEquals(
                 searchCriteria.hotelId(),
                 searchCriteria.checkIn(),
-                searchCriteria.checkOut()
-            ).stream()
-            .filter(entity -> entity.getAges().equals(searchCriteria.ages()))
-            .count()
+                searchCriteria.checkOut(),
+                searchCriteria.ages().stream()
+                        .map(String::valueOf)
+                        .collect(Collectors.joining(","))
+            )
         );
     }
 

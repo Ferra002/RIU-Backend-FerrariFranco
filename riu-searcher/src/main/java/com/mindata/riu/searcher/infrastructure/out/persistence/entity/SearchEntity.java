@@ -31,6 +31,10 @@ public class SearchEntity {
     @Column(name = "check_out", nullable = false)
     private LocalDate checkOut;
 
+    // Used to optimize 'ages' counts. Example: [1,2,3] --> "1,2,3"
+    @Column(name = "raw_ages", nullable = false)
+    private String rawAges;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "search_age", joinColumns = @JoinColumn(name = "search_id"))
     @Column(name = "age", nullable = false)

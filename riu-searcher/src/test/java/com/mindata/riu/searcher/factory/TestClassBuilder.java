@@ -56,6 +56,7 @@ public class TestClassBuilder {
         "hotel-id",
         LocalDate.now().plusDays(15),
         LocalDate.MAX,
+        "1,2,3",
         List.of(1,2,3)
     );
 

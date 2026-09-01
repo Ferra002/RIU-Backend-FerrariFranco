@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,6 +31,8 @@ class SearchPersistenceMapperTest {
             () -> assertEquals(dto.checkIn(), result.getCheckIn()),
             () -> assertNotNull(result.getCheckOut()),
             () -> assertEquals(dto.checkOut(), result.getCheckOut()),
+            () -> assertNotNull(result.getRawAges()),
+            () -> assertFalse(result.getRawAges().isBlank()),
             () -> assertNotNull(result.getAges()),
             () -> assertEquals(dto.ages(), result.getAges())
         );
@@ -89,6 +92,7 @@ class SearchPersistenceMapperTest {
             "abcde123",
             LocalDate.MIN,
             LocalDate.MAX,
+            "1,2,3",
             null
         );
         SearchRepositoryDTO result = mapper.toDto(entity);
@@ -97,6 +101,31 @@ class SearchPersistenceMapperTest {
             () -> assertNotNull(result),
             () -> assertNull(result.ages())
         );
+    }
+
+    @Test
+    void toRawAges(){
+        String expected = "1,2,3";
+        List<Integer> ages = List.of(1,2,3);
+
+        String result = mapper.toRawAges(ages);
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void toRawAgesEmptyAges(){
+        String result = mapper.toRawAges(List.of());
+
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertTrue(result.isBlank())
+        );
+    }
+
+    @Test
+    void toRawAgesNullAges(){
+        assertNull(mapper.toRawAges(null));
     }
 
 }

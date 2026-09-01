@@ -30,12 +30,19 @@ export default function () {
         }
     );
 
+    const postOk = check(postResponse, {
+        'status is 201': (r) => r.status === 201
+    });
+
+    if(!postOk) return;
+
     const searchId = postResponse.json('searchId');
 
-    check(postResponse, {
-        'status is 201': (r) => r.status === 201,
-        'has searchId': () => searchId != null,
+    const hasSearchId = check(postResponse, {
+        'has searchId': () => searchId != null
     });
+
+    if(!hasSearchId) return;
 
     let getResponse;
     let attempts = 0;
@@ -43,19 +50,27 @@ export default function () {
     // Wait for eventual consistency
     do {
         getResponse = http.get(
-            `http://localhost:3500/count?searchId=${searchId}`
+            `http://localhost:3500/count?searchId=${searchId}`,
+            {
+                responseCallback: http.expectedStatuses(200, 404)
+            }
         );
 
         if(getResponse.status === 200) break;
 
         attempts++;
-        sleep(0.2);
-    } while(attempts < 10)
+        sleep(0.5);
+    } while(attempts < 20)
+
+    const getOk = check(getResponse, {
+        'status is 200': (r) => r.status === 200,
+    });
+
+    if(!getOk) return;
 
     const getResponseBody = getResponse.json();
 
     check(getResponse, {
-        'status is 200': (r) => r.status === 200,
         'has searchId': () => getResponseBody.searchId != null,
         'is searchId same': () => getResponseBody.searchId === searchId,
         'has search': () => getResponseBody.search != null,

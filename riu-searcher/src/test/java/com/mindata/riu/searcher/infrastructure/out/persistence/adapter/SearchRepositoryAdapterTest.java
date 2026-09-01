@@ -61,7 +61,8 @@ class SearchRepositoryAdapterTest {
     void countEqualSearches() {
         var searchCriteria = TestClassBuilder.SEARCH_CRITERIA;
         var list = new ArrayList<>(List.of(TestClassBuilder.SEARCH_ENTITY, TestClassBuilder.SEARCH_ENTITY));
-        Integer expectedResult = list.size();
+        long expectedResult = list.size();
+        String rawAges = "1,2,3";
 
         list.add(new SearchEntity(
             0L,
@@ -69,26 +70,26 @@ class SearchRepositoryAdapterTest {
             "hotel-id",
             LocalDate.MIN,
             LocalDate.MAX,
+            rawAges,
             list.getFirst().getAges().reversed()
         ));
 
-        when(repository.findAllByHotelIdAndCheckInEqualsAndCheckOutEquals(
-            searchCriteria.hotelId(), searchCriteria.checkIn(), searchCriteria.checkOut()
-        )).thenReturn(list);
+        when(repository.countByHotelIdAndCheckInEqualsAndCheckOutEqualsAndRawAgesEquals(
+            searchCriteria.hotelId(), searchCriteria.checkIn(), searchCriteria.checkOut(), rawAges
+        )).thenReturn(expectedResult);
 
         Integer result = adapter.countEqualSearches(searchCriteria);
 
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, result.longValue());
     }
 
     @Test
-    void countEqualSearchesEmpty() {
+    void countEqualSearchesZero() {
         var searchCriteria = TestClassBuilder.SEARCH_CRITERIA;
-        List<SearchEntity> list = List.of();
 
-        when(repository.findAllByHotelIdAndCheckInEqualsAndCheckOutEquals(
-            searchCriteria.hotelId(), searchCriteria.checkIn(), searchCriteria.checkOut()
-        )).thenReturn(list);
+        when(repository.countByHotelIdAndCheckInEqualsAndCheckOutEqualsAndRawAgesEquals(
+            searchCriteria.hotelId(), searchCriteria.checkIn(), searchCriteria.checkOut(), "1,2,3"
+        )).thenReturn(0L);
 
         Integer result = adapter.countEqualSearches(searchCriteria);
 
