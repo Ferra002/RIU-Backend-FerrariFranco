@@ -10,6 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,29 +56,35 @@ class SearchRequestDTOTest {
 
     @ParameterizedTest(name = "{0}")
     @CsvSource(value = {
-            "Ages below Zero, valid-hotel, 2020-01-01, 2030-12-12, '1,2,-1'",
-            "Null Hotel Id, null, 2020-01-01, 2030-12-12, '1,2,3'",
-            "Blank Hotel Id, '', 2020-01-01, 2030-12-12, '1,2,3'",
-            "Null Check In, valid-hotel, null, 2030-12-12, '1,2,3'",
-            "Null Check Out, valid-hotel, 2020-01-01, null, '1,2,3'",
-            "Null Ages, valid-hotel, 2020-01-01, 2030-12-12, null",
-            "Empty Ages, valid-hotel, 2020-01-01, 2030-12-12, ''"
+            "Ages below Zero, valid-hotel, 01/01/3000, 04/01/3000, '1,2,-1'",
+            "Null Hotel Id, null, 01/01/3000, 04/01/3000, '1,2,3'",
+            "Blank Hotel Id, '', 01/01/3000, 04/01/3000, '1,2,3'",
+            "Null Check In, valid-hotel, null, 04/01/3000, '1,2,3'",
+            "Past Check In, valid-hotel, 01/01/2000, 04/01/3000, '1,2,3'",
+            "Null Check Out, valid-hotel, 01/01/3000, null, '1,2,3'",
+            "Null Ages, valid-hotel, 01/01/3000, 04/01/3000, null",
+            "Empty Ages, valid-hotel, 01/01/3000, 04/01/3000, ''"
     }, nullValues = "null")
     void testInvalidSearchRequest(
             String caseName,
             String hotelId,
-            LocalDate checkIn,
-            LocalDate checkOut,
-            String ages
+            String rawCheckIn,
+            String rawCheckOut,
+            String rawAges
     ){
-        List<Integer> agesList;
+        List<Integer> ages;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
-        if(ages == null){
-            agesList = null;
-        } else if (ages.isBlank()){
-            agesList = List.of();
+        LocalDate checkIn = rawCheckIn != null ? LocalDate.parse(rawCheckIn, formatter) : null;
+        LocalDate checkOut = rawCheckOut != null ? LocalDate.parse(rawCheckOut, formatter) : null;
+
+
+        if(rawAges == null){
+            ages = null;
+        } else if (rawAges.isBlank()){
+            ages = List.of();
         } else {
-            agesList = Arrays.stream(ages.split(","))
+            ages = Arrays.stream(rawAges.split(","))
                     .map(Integer::parseInt)
                     .toList();
         }
@@ -86,7 +93,7 @@ class SearchRequestDTOTest {
                 hotelId,
                 checkIn,
                 checkOut,
-                agesList
+                ages
         );
 
         var violations = validator.validate(dto);

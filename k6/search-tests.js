@@ -9,8 +9,8 @@ export const options = {
 export default function () {
     const search = {
         hotelId: '1234aBc',
-        checkIn: '2026-08-24',
-        checkOut: '2026-09-24',
+        checkIn: '01/01/3000',
+        checkOut: '04/05/3002',
         ages: [59, 54, 24]
     };
 

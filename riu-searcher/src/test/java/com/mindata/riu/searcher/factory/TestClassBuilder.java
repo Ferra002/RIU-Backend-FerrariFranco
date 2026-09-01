@@ -16,7 +16,7 @@ public class TestClassBuilder {
     public static final SearchRepositoryDTO SEARCH_REPOSITORY_DTO = new SearchRepositoryDTO(
             "search-id",
             "1234aBc",
-            LocalDate.MIN,
+            LocalDate.now().plusDays(15),
             LocalDate.MAX,
             List.of(1,2,3)
     );
@@ -25,7 +25,7 @@ public class TestClassBuilder {
             "search-id",
             new SearchCriteria(
                     "4321cBa",
-                    LocalDate.MIN,
+                    LocalDate.now().plusDays(15),
                     LocalDate.MAX,
                     List.of(4,5,6)
             ),
@@ -34,7 +34,7 @@ public class TestClassBuilder {
 
     public static final SearchRequestDTO SEARCH_REQUEST_DTO = new SearchRequestDTO(
             "5923Eba",
-            LocalDate.MIN,
+            LocalDate.now().plusDays(15),
             LocalDate.MAX,
             List.of(7,8,9)
     );
@@ -45,7 +45,7 @@ public class TestClassBuilder {
 
     public static final SearchCriteria SEARCH_CRITERIA = new SearchCriteria(
         "valid-hotel",
-        LocalDate.MIN,
+        LocalDate.now().plusDays(15),
         LocalDate.MAX,
         List.of(1,2,3)
     );
@@ -54,14 +54,14 @@ public class TestClassBuilder {
         0L,
         "search-id",
         "hotel-id",
-        LocalDate.MIN,
+        LocalDate.now().plusDays(15),
         LocalDate.MAX,
         List.of(1,2,3)
     );
 
     public static final SearchEvent SEARCH_EVENT = new SearchEvent(
         "valid-hotel",
-        LocalDate.MIN,
+        LocalDate.now().plusDays(15),
         LocalDate.MAX,
         List.of(1,2,3)
     );

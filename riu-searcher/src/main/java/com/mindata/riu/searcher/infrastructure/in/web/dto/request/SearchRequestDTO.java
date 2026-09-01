@@ -2,10 +2,7 @@ package com.mindata.riu.searcher.infrastructure.in.web.dto.request;
 
 import com.mindata.riu.searcher.domain.exception.search.CheckInAfterCheckOutException;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,15 +17,16 @@ public record SearchRequestDTO(
         String hotelId,
 
         @Schema(
-            description = "Fecha del check-in, formato yyyy-MM-dd",
-            example = "2026-08-24"
+            description = "Fecha del check-in, formato dd/MM/yyyy. NO puede ser una fecha pasada",
+            example = "24/08/2026"
         )
+        @FutureOrPresent(message = "El campo 'checkIn' no puede ser una fecha pasada")
         @NotNull(message = "El campo 'checkIn' no puede ser nulo o estar vacío")
         LocalDate checkIn,
 
         @Schema(
-            description = "Fecha del check-out, formato yyyy-MM-dd",
-            example = "2026-08-27"
+            description = "Fecha del check-out, formato dd/MM/yyyy",
+            example = "27/08/2026"
         )
         @NotNull(message = "El campo 'checkOut' no puede ser nulo o estar vacío")
         LocalDate checkOut,

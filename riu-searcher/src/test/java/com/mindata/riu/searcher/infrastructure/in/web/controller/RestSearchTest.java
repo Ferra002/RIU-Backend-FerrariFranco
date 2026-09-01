@@ -3,6 +3,7 @@ package com.mindata.riu.searcher.infrastructure.in.web.controller;
 import com.mindata.riu.searcher.application.port.out.event.SearchEventPublisher;
 import com.mindata.riu.searcher.domain.repository.SearchRepository;
 import com.mindata.riu.searcher.factory.TestClassBuilder;
+import com.mindata.riu.searcher.infrastructure.in.web.dto.request.SearchRequestDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +14,9 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import tools.jackson.databind.ObjectMapper;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
@@ -42,6 +46,8 @@ class RestSearchTest {
         String searchId = "search-id";
         var expected = TestClassBuilder.SEARCH_REPOSITORY_DTO;
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+
         given(searchRepository.findBySearchId(searchId))
                 .willReturn(Optional.of(expected));
 
@@ -55,8 +61,8 @@ class RestSearchTest {
                         content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON),
                         jsonPath("$.searchId").value(expected.searchId()),
                         jsonPath("$.search.hotelId").value(expected.hotelId()),
-                        jsonPath("$.search.checkIn").value(expected.checkIn().toString()),
-                        jsonPath("$.search.checkOut").value(expected.checkOut().toString()),
+                        jsonPath("$.search.checkIn").value(expected.checkIn().format(formatter)),
+                        jsonPath("$.search.checkOut").value(expected.checkOut().format(formatter)),
                         jsonPath("$.search.ages").isArray()
 
                 );
@@ -110,6 +116,50 @@ class RestSearchTest {
                                 .content("{}")
                 )
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testSearchInvalidDatesFormat() throws Exception{
+        String body = """
+                {
+                    "hotelId": "valid-hotel",
+                    "checkIn": "3000-01-01",
+                    "checkOut": "3100-01-01",
+                    "ages": [1, 2, 3]
+                }
+                """;
+
+        mockMvc.perform(
+                        post("/search")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .content(body)
+                )
+                .andExpectAll(
+                        status().is4xxClientError(),
+                        content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
+                );
+    }
+
+    @Test
+    void testSearchDateFromPast() throws Exception{
+        SearchRequestDTO body = new SearchRequestDTO(
+                "valid-hotel",
+                LocalDate.of(2000,1,1),
+                LocalDate.of(3000,1,1),
+                List.of(1,2,3)
+        );
+
+        mockMvc.perform(
+                        post("/search")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(body))
+                )
+                .andExpectAll(
+                        status().is4xxClientError(),
+                        content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
+                );
     }
 
 }
