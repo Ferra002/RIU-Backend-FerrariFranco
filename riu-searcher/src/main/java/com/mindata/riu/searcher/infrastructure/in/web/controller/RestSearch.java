@@ -38,12 +38,9 @@ public class RestSearch {
         summary = "Consultar búsquedas",
         description = "Obtiene una búsqueda específica en base a un identificador, así como la cuenta de búsquedas iguales"
     )
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Consulta exitosa"),
-        @ApiResponse(responseCode = "400", description = "Parámetro inválido"),
-        @ApiResponse(responseCode = "404", description = "Búsqueda no encontrada")
-    }
-    )
+    @ApiResponse(responseCode = "200", description = "Consulta exitosa")
+    @ApiResponse(responseCode = "400", description = "Parámetro inválido")
+    @ApiResponse(responseCode = "404", description = "Búsqueda no encontrada")
     @GetMapping("/count")
     public ResponseEntity<CountResponseDTO> count(
         @RequestParam
@@ -59,10 +56,8 @@ public class RestSearch {
         summary = "Publicar búsqueda",
         description = "Asigna un identificador a una búsqueda, publica la búsqueda y devuelve el identificador generado"
     )
-    @ApiResponses({
-        @ApiResponse(responseCode = "201", description = "Publicación exitosa"),
-        @ApiResponse(responseCode = "400", description = "Solicitud inválida")
-    })
+    @ApiResponse(responseCode = "201", description = "Publicación exitosa")
+    @ApiResponse(responseCode = "400", description = "Solicitud inválida")
     @PostMapping("/search")
     public ResponseEntity<SearchResponseDTO> search(@RequestBody @Valid SearchRequestDTO request){
         return ResponseEntity.status(HttpStatus.CREATED).body(

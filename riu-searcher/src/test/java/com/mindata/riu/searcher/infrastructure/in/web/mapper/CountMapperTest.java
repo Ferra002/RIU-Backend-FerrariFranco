@@ -4,12 +4,10 @@ import com.mindata.riu.searcher.domain.model.SearchCount;
 import com.mindata.riu.searcher.domain.model.SearchCriteria;
 import com.mindata.riu.searcher.factory.TestClassBuilder;
 import com.mindata.riu.searcher.infrastructure.in.web.dto.response.CountResponseDTO;
-import com.mindata.riu.searcher.infrastructure.in.web.mapper.CountMapper;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

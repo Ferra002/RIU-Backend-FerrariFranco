@@ -3,7 +3,6 @@ package com.mindata.riu.writer.infrastructure.out.persistence.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
