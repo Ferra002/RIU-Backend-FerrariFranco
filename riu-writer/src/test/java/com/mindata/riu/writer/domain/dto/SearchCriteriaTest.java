@@ -47,13 +47,17 @@ class SearchCriteriaTest {
 
     @Test
     void testThrowsOnInvalidCheckInAndCheckOut(){
+        LocalDate checkIn = LocalDate.MAX;
+        LocalDate checkOut = LocalDate.MIN;
+        List<Integer> ages = List.of(1,2,3);
+
         assertThrows(CheckInAfterCheckOutException.class, () -> {
             new SearchCriteria(
                 "search-id",
                 "abcde123",
-                LocalDate.MAX,
-                LocalDate.MIN,
-                List.of(1,2,3)
+                checkIn,
+                checkOut,
+                ages
             );
         });
     }

@@ -1,6 +1,6 @@
 package com.mindata.riu.writer.infrastructure.in.kafka.config;
 
-import com.mindata.riu.writer.domain.exception.search.SearchException;
+import com.mindata.riu.writer.domain.exception.search.CheckInAfterCheckOutException;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -13,6 +13,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.kafka.listener.MessageListenerContainer;
 
+import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,7 +45,7 @@ class KafkaConfigTest {
     void testSendMessageToDlq(){
         DefaultErrorHandler errorHandler = kafkaConfig.errorHandler(kafkaTemplate);
 
-        ConsumerRecord<Object, Object> record = new ConsumerRecord<>(
+        ConsumerRecord<Object, Object> consumerRecord = new ConsumerRecord<>(
             "topic",
             1,
             0L,
@@ -56,8 +57,8 @@ class KafkaConfigTest {
             .thenReturn(CompletableFuture.completedFuture(null));
 
         errorHandler.handleOne(
-            new SearchException("dummy"),
-            record,
+            new CheckInAfterCheckOutException(LocalDate.MAX, LocalDate.MIN),
+            consumerRecord,
             consumer,
             messageListenerContainer
         );

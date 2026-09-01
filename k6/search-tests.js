@@ -2,15 +2,19 @@ import http from 'k6/http'
 import { check, sleep } from 'k6'
 
 export const options = {
-  vus: 100,
-  duration: '30s',
+    stages: [
+        {duration: "10s", target: 5},
+        {duration: "20s", target: 50},
+        {duration: "40s", target: 200},
+        {duration: "80s", target: 1000},
+    ]
 }
 
 export default function () {
     const search = {
         hotelId: '1234aBc',
-        checkIn: '2026-08-24',
-        checkOut: '2026-09-24',
+        checkIn: '01/01/3000',
+        checkOut: '04/05/3002',
         ages: [59, 54, 24]
     };
 
@@ -26,12 +30,19 @@ export default function () {
         }
     );
 
+    const postOk = check(postResponse, {
+        'status is 201': (r) => r.status === 201
+    });
+
+    if(!postOk) return;
+
     const searchId = postResponse.json('searchId');
 
-    check(postResponse, {
-        'status is 201': (r) => r.status === 201,
-        'has searchId': () => searchId != null,
+    const hasSearchId = check(postResponse, {
+        'has searchId': () => searchId != null
     });
+
+    if(!hasSearchId) return;
 
     let getResponse;
     let attempts = 0;
@@ -39,19 +50,27 @@ export default function () {
     // Wait for eventual consistency
     do {
         getResponse = http.get(
-            `http://localhost:3500/count?searchId=${searchId}`
+            `http://localhost:3500/count?searchId=${searchId}`,
+            {
+                responseCallback: http.expectedStatuses(200, 404)
+            }
         );
 
         if(getResponse.status === 200) break;
 
         attempts++;
-        sleep(0.2);
-    } while(attempts < 10)
+        sleep(0.5);
+    } while(attempts < 20)
+
+    const getOk = check(getResponse, {
+        'status is 200': (r) => r.status === 200,
+    });
+
+    if(!getOk) return;
 
     const getResponseBody = getResponse.json();
 
     check(getResponse, {
-        'status is 200': (r) => r.status === 200,
         'has searchId': () => getResponseBody.searchId != null,
         'is searchId same': () => getResponseBody.searchId === searchId,
         'has search': () => getResponseBody.search != null,

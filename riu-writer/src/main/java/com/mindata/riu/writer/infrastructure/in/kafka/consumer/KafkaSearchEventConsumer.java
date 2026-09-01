@@ -21,12 +21,15 @@ public class KafkaSearchEventConsumer {
     private final ProcessSearchUseCase processSearchUseCase;
     private final KafkaSearchMapper mapper;
 
-    @KafkaListener(topics = KafkaConstants.INPUT_TOPIC)
+    @KafkaListener(
+            topics = KafkaConstants.INPUT_TOPIC,
+            concurrency = "5"
+    )
     public void process(
         @Header(KafkaHeaders.RECEIVED_KEY) SearchKey key,
         @Payload SearchEvent value
     ){
-        log.info("Kafka message received. Key: '{}'. Value: '{}'", key, value);
+        log.info("Kafka message received. Key: '{}'", key);
 
         processSearchUseCase.process(mapper.toCriteria(key, value));
     }

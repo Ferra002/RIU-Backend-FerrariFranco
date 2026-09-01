@@ -16,6 +16,7 @@ class SearchEntityTest {
             "abcde123",
             LocalDate.MIN,
             LocalDate.MAX,
+            "1,2,3",
             List.of(1,2,3)
         );
 

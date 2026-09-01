@@ -1,6 +1,6 @@
 package com.mindata.riu.writer.infrastructure.in.kafka.config;
 
-import com.mindata.riu.writer.domain.exception.search.SearchException;
+import com.mindata.riu.writer.domain.exception.search.CheckInAfterCheckOutException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.TopicPartition;
@@ -19,17 +19,17 @@ public class KafkaConfig {
     public DefaultErrorHandler errorHandler(KafkaTemplate<Object, Object> kafkaTemplate){
         var recover = new DeadLetterPublishingRecoverer(
             kafkaTemplate,
-            (record, ex) -> {
+            (consumerRecord, ex) -> {
                 log.error(
                     "Sending message to DLQ. Key: '{}'. Value: '{}'. Exception: ''",
-                    record.key(),
-                    record.value(),
+                    consumerRecord.key(),
+                    consumerRecord.value(),
                     ex
                 );
 
                 return new TopicPartition(
                     KafkaConstants.DQL_TOPIC,
-                    record.partition()
+                    consumerRecord.partition()
                 );
             }
         );
@@ -42,7 +42,7 @@ public class KafkaConfig {
         errorHandler.addNotRetryableExceptions(
             IllegalArgumentException.class,
             ConstraintViolationException.class,
-            SearchException.class
+            CheckInAfterCheckOutException.class
         );
 
         return errorHandler;

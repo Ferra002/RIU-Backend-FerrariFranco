@@ -14,14 +14,14 @@ public record CountSearchDTO (
     String hotelId,
 
     @Schema(
-        description = "Fecha del check-in, formato yyyy-MM-dd",
-        example = "2026-08-24"
+        description = "Fecha del check-in, formato dd/MM/yyyy",
+        example = "24/08/2026"
     )
     LocalDate checkIn,
 
     @Schema(
-        description = "Fecha del check-out, formato yyyy-MM-dd",
-        example = "2026-08-27"
+        description = "Fecha del check-out, formato dd/MM/yyyy",
+        example = "27/08/2026"
     )
     LocalDate checkOut,
 

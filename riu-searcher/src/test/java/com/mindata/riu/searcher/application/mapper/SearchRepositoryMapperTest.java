@@ -1,13 +1,12 @@
 package com.mindata.riu.searcher.application.mapper;
 
-import com.mindata.riu.searcher.application.port.out.dto.SearchRepositoryDTO;
+import com.mindata.riu.searcher.domain.repository.dto.SearchRepositoryDTO;
 import com.mindata.riu.searcher.domain.model.SearchCriteria;
 import com.mindata.riu.searcher.factory.TestClassBuilder;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
