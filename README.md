@@ -87,14 +87,15 @@ http://localhost:3500/count?searchId=4f329977-8339-4d6f-9988-348f98ef4a1d
 ### POST ```/search```
 
 Asigna un identificador a la búsqueda y la publica para su procesamiento.
+Importante: El formato de fecha es "dd/MM/yyyy".
 
 #### Ejemplo (BODY)
 
 ```
 {
     "hotelId": "1234aBc",
-    "checkIn": "2026-08-24",
-    "checkOut": "2026-09-24",
+    "checkIn": "24/08/2126",
+    "checkOut": "28/09/2130",
     "ages": [59, 54, 24, 20]
 }
 ```
