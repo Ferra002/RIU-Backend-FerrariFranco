@@ -34,12 +34,11 @@ public class KafkaSearchEventPublisher implements SearchEventPublisher {
 
                 var metadata = result.getRecordMetadata();
 
-                log.info("Sent Kafka message. Topic: '{}'. Partition: '{}'. Offset: '{}'. Key: '{}'. Value: '{}'",
+                log.info("Sent Kafka message. Topic: '{}'. Partition: '{}'. Offset: '{}'. Key: '{}'",
                     metadata.topic(),
                     metadata.partition(),
                     metadata.offset(),
-                    key,
-                    event
+                    key
                 );
             });
     }

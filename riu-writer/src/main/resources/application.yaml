@@ -15,6 +15,10 @@ spring:
     username: riu_user
     password: RiuUserPassword123
     driver-class-name: oracle.jdbc.OracleDriver
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 5
+      connection-timeout: 10000
   kafka:
     bootstrap-servers: kafka:9092
     producer:
